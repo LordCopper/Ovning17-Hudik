@@ -8,9 +8,12 @@
 @if (User.IsInRole("Admin"))
 {
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Registrera nytt pass", "Create")
     </p>
 }
+<p>
+    @Html.ActionLink("Vissa tidigare pass", "History")
+</p>
 <table class="table">
     <tr>
         <th>
@@ -47,11 +50,18 @@
             <td>
                 @if (User.IsInRole("Admin"))
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) <span>|</span>
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) <span>|</span>
+                    @Html.ActionLink("Ändra pass", "Edit", new { id = item.Id }) <span>|</span>
+                    @Html.ActionLink("Ställ in pass", "Delete", new { id = item.Id }) <span>|</span>
                 }
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) <span>|</span>                
-                @Html.ActionLink("Book", "BookingToggle", new { id = item.Id })
+                @Html.ActionLink("Pass detaljer", "Details", new { id = item.Id }) <span>|</span>
+                @if (item.AttendingMembers.FirstOrDefault(g => g.Email == User.Identity.Name) != null)
+                {
+                    @Html.ActionLink("Boka av", "BookingToggle", new { id = item.Id })
+                }
+                else
+                {
+                    @Html.ActionLink("Boka", "BookingToggle", new { id = item.Id })
+                }
             </td>
         }
     </tr>
