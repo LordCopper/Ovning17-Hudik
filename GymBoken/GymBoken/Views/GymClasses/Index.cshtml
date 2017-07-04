@@ -1,5 +1,7 @@
 ﻿@using System.Activities.Statements
 @using System.Diagnostics.Eventing.Reader
+@using System.Linq
+@using Microsoft.AspNet.Identity
 @model IEnumerable<GymBoken.Models.GymClass>
 
 @{
@@ -65,6 +67,15 @@
                     else
                     {
                         @Html.ActionLink("Details", "Details", new { id = item.Id })
+                        <span> | </span>
+                        if (item.AttendingMembers.Any(a => a.UserName == User.Identity.Name))
+                        {
+                            @Html.ActionLink("UnBook", "BookingToggle", new { id = item.Id })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Book", "BookingToggle", new { id = item.Id })
+                        }
                     }
                 }
 

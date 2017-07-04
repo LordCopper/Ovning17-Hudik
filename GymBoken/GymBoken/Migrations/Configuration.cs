@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GymBoken.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -48,13 +49,17 @@ namespace GymBoken.Migrations
             UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(context);
             UserManager<ApplicationUser> userManager = new ApplicationUserManager(userStore);
             
-            string[] emails = new[] {"anders@gym.se", "admin@admin.se", "borje@gym.se", "rumpnisse@gym.se"};
+            List<ApplicationUser> userslist = new List<ApplicationUser>();
 
-            foreach (var email in emails)
+            ApplicationUser user1 = new ApplicationUser{FirstName = "Bob", LastName = "Korv", Email = "Bob@korv.se", UserName = "Bob@korv.se", TimeOfRegistration = new DateTime(2016, 5, 1, 8, 30, 52) };
+            userslist.Add(user1);
+            ApplicationUser user2 = new ApplicationUser { FirstName = "Alfred", LastName = "Ballfred", Email = "Admin@Gymbokning.se", UserName = "Admin@Gymbokning.se", TimeOfRegistration = new DateTime(2014, 5, 5, 10, 34, 32) };
+            userslist.Add(user2);
+            foreach (var users in userslist)
             {
-                if (!context.Users.Any(u => u.UserName == email))
+                if (!context.Users.Any(u => u.UserName == users.Email))
                 {
-                    ApplicationUser user = new ApplicationUser{UserName = email, Email = email};
+                    ApplicationUser user = new ApplicationUser{UserName = users.UserName, Email = users.Email, FirstName = users.FirstName, LastName = users.LastName, TimeOfRegistration = users.TimeOfRegistration};
                     var result = userManager.Create(user, "password");
                     if (!result.Succeeded)
                     {
@@ -65,12 +70,13 @@ namespace GymBoken.Migrations
                
             }
             
-            ApplicationUser adminUser = userManager.FindByName("admin@admin.se");
+            
+
+            ApplicationUser adminUser = userManager.FindByName("admin@Gymbokning.se");
             userManager.AddToRole(adminUser.Id, "Admin");
 
 
-
-            foreach (ApplicationUser user in userManager.Users.Where(u => u.UserName != "admin@admin.se").ToList() )
+            foreach (ApplicationUser user in userManager.Users.ToList().Where(u => u.Email != "admin@Gymbokning.se").ToList() )
             {
                 userManager.AddToRole(user.Id, "Member");
             }

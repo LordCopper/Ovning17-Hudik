@@ -12,7 +12,7 @@ namespace GymBoken.Models
         public int Id { get; set; }
 
         public string Name { get; set; }
-
+        
         public DateTime StartTime { get; set; }
 
         public TimeSpan Duration { get; set; }
