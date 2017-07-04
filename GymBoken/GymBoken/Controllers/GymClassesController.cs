@@ -11,17 +11,21 @@ using Microsoft.AspNet.Identity;
 
 namespace GymBoken.Controllers
 {
+    [Authorize]
     public class GymClassesController : Controller
     {
+        
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: GymClasses
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(db.GymClasses.ToList());
         }
 
         // GET: GymClasses/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
