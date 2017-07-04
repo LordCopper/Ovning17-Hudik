@@ -1,13 +1,13 @@
 ﻿@model GymBoken.Models.GymClass
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detaljer";
 }
 
-<h2>Details</h2>
+<h2>Detaljer</h2>
 
 <div>
-    <h4>GymClass</h4>
+    <h4>Gympass</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -55,9 +55,9 @@
     </dl>
 </div>
 <p>
-    @if (User.IsInRole("Admin"))
+    @if (User.IsInRole("Admin") && Model.StartTime >= DateTime.Now)
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) <span> | </span>
+        @Html.ActionLink("Ändra pass", "Edit", new { id = Model.Id }) <span> | </span>
     }
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Tillbaka", "Index")
 </p>

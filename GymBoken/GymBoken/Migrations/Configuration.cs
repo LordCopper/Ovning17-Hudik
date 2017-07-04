@@ -4,6 +4,7 @@ namespace GymBoken.Migrations
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -80,13 +81,32 @@ namespace GymBoken.Migrations
             {
                 userManager.AddToRole(user.Id, "Member");
             }
+            context.SaveChanges();
+            GymClass[] gym = new GymClass[] {
+                new GymClass
+                {
+                Name = "Kicking",
+                Description = "Sparka loss",
+                Duration = new TimeSpan(0,30,0),
+                StartTime = new DateTime(2017,02,02),
+                AttendingMembers = new List<ApplicationUser>()
+                },
+                new GymClass
+                {
+                Name = "Snöboll",
+                Description = "Ta med egen snö",
+                Duration = new TimeSpan(0,33,0),
+                StartTime = new DateTime(2013,03,12),
+                AttendingMembers = new List<ApplicationUser>()
+                }
+            };
+            gym[0].AttendingMembers.Add(adminUser);
+            gym[1].AttendingMembers.Add(adminUser);
 
-            //ApplicationUser memberUser = userManager.FindByName("john@lexicon.se");
-            //userManager.AddToRole(memberUser.Id, "Member");
-            //memberUser = userManager.FindByName("editor@lexicon.se");
-            //userManager.AddToRole(memberUser.Id, "Member");
-            //memberUser = userManager.FindByName("Bob@lexicon.se");
-            //userManager.AddToRole(memberUser.Id, "Member");
+            foreach(GymClass g in gym)
+            {
+                context.GymClasses.Add(g);
+            }
         }
     }
 }
