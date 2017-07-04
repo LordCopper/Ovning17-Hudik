@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GymBoken.Models;
+using Microsoft.AspNet.Identity;
 
 namespace GymBoken.Controllers
 {
@@ -112,8 +113,32 @@ namespace GymBoken.Controllers
             GymClass gymClass = db.GymClasses.Find(id);
             db.GymClasses.Remove(gymClass);
             db.SaveChanges();
+
+            
+
             return RedirectToAction("Index");
         }
+
+        public ActionResult BookingToggle(int id)
+        {
+            GymClass currentClass = db.GymClasses.FirstOrDefault(g => g.Id == id);
+            ApplicationUser currentUser = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+
+            if (currentClass.AttendingMembers.Contains(currentUser))
+            {
+                currentClass.AttendingMembers.Remove(currentUser);
+                db.SaveChanges();
+            }
+            else
+            {
+                currentClass.AttendingMembers.Add(currentUser);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
 
         protected override void Dispose(bool disposing)
         {
