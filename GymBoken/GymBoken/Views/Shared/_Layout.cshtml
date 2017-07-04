@@ -20,11 +20,14 @@
                 @Html.ActionLink("Gymbokning", "Index", "GymClasses", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                @*<ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("GymClasses", "Index", "GymClasses")</li>
-                    <li>@Html.ActionLink("About", "About", "GymClasses")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "GymClasses")</li>
-                </ul>*@
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Bokade Pass", "CurrentBookings")</li>
+                        <li>@Html.ActionLink("Min Historik", "History", new { id = 2 })</li>
+                        @*<li>@Html.ActionLink("Contact", "Contact", "GymClasses")</li>*@
+                    </ul>
+                }
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

@@ -54,9 +54,9 @@
     </dl>
 </div>
 <p>
-    @if (User.IsInRole("Admin"))
+    @if (User.IsInRole("Admin") && Model.StartTime >= DateTime.Now)
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })        <span>|</span>
+        @Html.ActionLink("Ändra pass", "Edit", new { id = Model.Id })        <span>|</span>
     }
     @Html.ActionLink("Back to List", "Index")
 </p>
