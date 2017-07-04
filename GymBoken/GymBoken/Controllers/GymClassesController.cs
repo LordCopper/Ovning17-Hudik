@@ -20,8 +20,9 @@ namespace GymBoken.Controllers
             return View(db.GymClasses.ToList());
         }
 
-        // GET: GymClasses/Details/5
-        public ActionResult Details(int? id)
+		// GET: GymClasses/Details/5
+		[Authorize]
+		public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -35,8 +36,9 @@ namespace GymBoken.Controllers
             return View(gymClass);
         }
 
-        // GET: GymClasses/Create
-        public ActionResult Create()
+		// GET: GymClasses/Create
+		[Authorize]
+		public ActionResult Create()
         {
             return View();
         }
@@ -45,7 +47,8 @@ namespace GymBoken.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+		[Authorize]
+		[ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,StartTime,Duration,Description")] GymClass gymClass)
         {
             if (ModelState.IsValid)
@@ -58,6 +61,7 @@ namespace GymBoken.Controllers
             return View(gymClass);
         }
 
+		[Authorize]
 		public ActionResult BookingToggle(int id)
 		{
 			GymClass CurrentClass = db.GymClasses.Where(g => g.Id == g.Id).FirstOrDefault();
@@ -76,8 +80,9 @@ namespace GymBoken.Controllers
 			return RedirectToAction("Index");
 		}
 
-        // GET: GymClasses/Edit/5
-        public ActionResult Edit(int? id)
+		// GET: GymClasses/Edit/5
+		[Authorize]
+		public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -95,7 +100,8 @@ namespace GymBoken.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+		[Authorize]
+		[ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,StartTime,Duration,Description")] GymClass gymClass)
         {
             if (ModelState.IsValid)
@@ -107,8 +113,9 @@ namespace GymBoken.Controllers
             return View(gymClass);
         }
 
-        // GET: GymClasses/Delete/5
-        public ActionResult Delete(int? id)
+		// GET: GymClasses/Delete/5
+		[Authorize]
+		public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -124,7 +131,8 @@ namespace GymBoken.Controllers
 
         // POST: GymClasses/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+		[Authorize]
+		[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             GymClass gymClass = db.GymClasses.Find(id);
