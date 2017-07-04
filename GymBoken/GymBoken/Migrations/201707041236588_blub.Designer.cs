@@ -7,13 +7,13 @@ namespace GymBoken.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class init : IMigrationMetadata
+    public sealed partial class blub : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(blub));
         
         string IMigrationMetadata.Id
         {
-            get { return "201707040814064_init"; }
+            get { return "201707041236588_blub"; }
         }
         
         string IMigrationMetadata.Source

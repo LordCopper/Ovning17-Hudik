@@ -194,13 +194,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707040814064_init.cs" />
-    <Compile Include="Migrations\201707040814064_init.Designer.cs">
-      <DependentUpon>201707040814064_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707041007229_update-database.cs" />
-    <Compile Include="Migrations\201707041007229_update-database.Designer.cs">
-      <DependentUpon>201707041007229_update-database.cs</DependentUpon>
+    <Compile Include="Migrations\201707041236588_blub.cs" />
+    <Compile Include="Migrations\201707041236588_blub.Designer.cs">
+      <DependentUpon>201707041236588_blub.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -289,11 +285,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707040814064_init.resx">
-      <DependentUpon>201707040814064_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707041007229_update-database.resx">
-      <DependentUpon>201707041007229_update-database.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707041236588_blub.resx">
+      <DependentUpon>201707041236588_blub.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
