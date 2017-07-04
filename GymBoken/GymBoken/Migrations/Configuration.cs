@@ -49,17 +49,21 @@ namespace GymBoken.Migrations
             UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(context);
             UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(userStore);
             string[] emails = new[] { "John@lexicon.se", "admin@admin.ad", "editor@lexicon.se", "Bob@lexicon.se","admin@Gymbokning.se" };
+            string[] firstName = new[] { "John", "Abmin", "Editor", "Bob", "Admin" };
+            string[] lastName = new[] { "Hellman", "Abmin", "rotide", "Dob", "Admin" };
+            int i = 0;
             foreach (string email in emails)
             {
                 if (!context.Users.Any(u=>u.UserName == email))
                 {
-                    ApplicationUser user = new ApplicationUser { UserName = email, Email = email };
+                    ApplicationUser user = new ApplicationUser { UserName = email, Email = email, FirstName = firstName[i],LastName = lastName[i],TimeOfRegistration = DateTime.Now};
                     var result = userManager.Create(user, "foobar");
                     if (!result.Succeeded)
                     {
                         throw new Exception(string.Join("\n", result.Errors));
                     }
                 }
+            i++;
             }
 
             ApplicationUser adminUser = userManager.FindByName("admin@admin.ad");
