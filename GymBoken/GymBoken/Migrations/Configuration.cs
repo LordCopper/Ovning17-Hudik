@@ -4,19 +4,20 @@ namespace GymBoken.Migrations
 	using Microsoft.AspNet.Identity;
 	using Microsoft.AspNet.Identity.EntityFramework;
 	using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+	using System.Collections.Generic;
+	using System.Data.Entity;
+	using System.Data.Entity.Migrations;
+	using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<GymBoken.Models.ApplicationDbContext>
-    {
-        public Configuration()
-        {
-            AutomaticMigrationsEnabled = false;
-        }
+	internal sealed class Configuration : DbMigrationsConfiguration<GymBoken.Models.ApplicationDbContext>
+	{
+		public Configuration()
+		{
+			AutomaticMigrationsEnabled = false;
+		}
 
-        protected override void Seed(GymBoken.Models.ApplicationDbContext context)
-        {
+		protected override void Seed(GymBoken.Models.ApplicationDbContext context)
+		{
 			//  This method will be called after migrating to the latest version.
 
 			//  You can use the DbSet<T>.AddOrUpdate() helper extension method 
@@ -77,6 +78,17 @@ namespace GymBoken.Migrations
 			foreach (var user in userManager.Users.ToList().Where(u => (u.Email != "god@heaven.org" && u.Email != "admin@gymbokning.se")))
 			{
 				userManager.AddToRole(user.Id, "Member");
+			}
+
+			var gymclasses = new GymClass[] {
+				new GymClass { Name = "Kicking", Description = "Sparka loss", Duration = new TimeSpan(1, 0, 0), StartTime = new DateTime(2017,06,20), AttendingMembers = new List<ApplicationUser>() },
+				new GymClass { Name = "Running", Description = "Spring ifrån dem", Duration = new TimeSpan(0, 30, 0),StartTime = new DateTime(2017,07,05), AttendingMembers = new List<ApplicationUser>() },
+				new GymClass { Name = "Spinning", Description = "Cykla runt här", Duration = new TimeSpan(2, 0, 0), StartTime = new DateTime(2016,01,02), AttendingMembers = new List<ApplicationUser>() } };
+			gymclasses[0].AttendingMembers.Add(adminUser);
+			gymclasses[1].AttendingMembers.Add(adminUser);
+			foreach(var gym in gymclasses)
+			{
+				context.GymClasses.Add(gym);
 			}
 		}
 	}

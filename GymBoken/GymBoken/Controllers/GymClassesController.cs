@@ -17,7 +17,31 @@ namespace GymBoken.Controllers
 		// GET: GymClasses
 		public ActionResult Index()
 		{
-			return View(db.GymClasses.ToList());
+			var newClasses = db.GymClasses.ToList().Where(g => g.EndTime >= DateTime.Now).ToList();
+			return View(newClasses);
+		}
+
+		public ActionResult History(int? id)
+		{
+			var oldClasses = db.GymClasses.ToList().Where(g => g.EndTime < DateTime.Now).ToList();
+			if (id == null)
+			{
+				return View(oldClasses);
+			}
+			else if (User.Identity.IsAuthenticated)
+			{
+				var user = db.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
+				return View(oldClasses.Where(g => g.AttendingMembers.Contains(user)).ToList());
+			}
+			return RedirectToAction("Index");
+		}
+
+		[Authorize]
+		public ActionResult CurrentBookings()
+		{
+			var myUser = db.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
+			var myClasses = db.GymClasses.ToList().Where(g => g.EndTime >= DateTime.Now && g.AttendingMembers.Contains(myUser)).ToList();
+			return View(myClasses);
 		}
 
 		// GET: GymClasses/Details/5

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Gymboken</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -17,14 +17,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Gymbooker", "Index", "GymClasses", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Gymboken", "Index", "GymClasses", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                @*<ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("GymClasses", "Index", "GymClasses")</li>
-                    <li>@Html.ActionLink("About", "About", "GymClasses")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "GymClasses")</li>
-                </ul>*@
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Bokade pass", "CurrentBookings", "GymClasses")</li>
+                    <li>@Html.ActionLink("Historia", "History", "GymClasses", new { id = 1 }, new { })</li>
+                </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -33,7 +32,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Gymboken v1.0</p>
         </footer>
     </div>
 
