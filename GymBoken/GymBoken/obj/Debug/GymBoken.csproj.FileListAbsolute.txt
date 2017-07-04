@@ -96,3 +96,4 @@ C:\Users\Seminarium\Source\Repos\Ovning17-Hudik\GymBoken\GymBoken\obj\Debug\GymB
 C:\Users\Seminarium\Source\Repos\Ovning17-Hudik\GymBoken\GymBoken\obj\Debug\GymBoken.pdb
 C:\Users\Seminarium\Source\Repos\Ovning17-Hudik\GymBoken\GymBoken\obj\Debug\GymBoken.Migrations.init.resources
 C:\Users\Seminarium\Source\Repos\Ovning17-Hudik\GymBoken\GymBoken\obj\Debug\GymBoken.csproj.GenerateResource.Cache
+C:\Users\Seminarium\Source\Repos\Ovning17-Hudik\GymBoken\GymBoken\obj\Debug\GymBoken.Migrations._1st.resources
