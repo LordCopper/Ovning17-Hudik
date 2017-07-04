@@ -1,0 +1,22 @@
+namespace GymBoken.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class Init2 : DbMigration
+    {
+        public override void Up()
+        {
+            AddColumn("dbo.GymClasses", "Name", c => c.String());
+            AddColumn("dbo.GymClasses", "StartTime", c => c.DateTime(nullable: false));
+            AddColumn("dbo.GymClasses", "Duration", c => c.Time(nullable: false, precision: 7));
+        }
+        
+        public override void Down()
+        {
+            DropColumn("dbo.GymClasses", "Duration");
+            DropColumn("dbo.GymClasses", "StartTime");
+            DropColumn("dbo.GymClasses", "Name");
+        }
+    }
+}
