@@ -58,6 +58,25 @@ namespace GymBoken.Controllers
             return View(gymClass);
         }
 
+        public ActionResult BookingToggle(int id)
+        {
+            GymClass CurrentClass = db.GymClasses.Where(g => g.Id == id).FirstOrDefault();
+            ApplicationUser CurrentUser = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+
+            if(CurrentClass.AttendingMembers.Contains(CurrentUser))
+            {
+                CurrentClass.AttendingMembers.Remove(CurrentUser);
+                db.SaveChanges();
+            }
+            else
+            {
+                CurrentClass.AttendingMembers.Add(CurrentUser);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
         // GET: GymClasses/Edit/5
         public ActionResult Edit(int? id)
         {
