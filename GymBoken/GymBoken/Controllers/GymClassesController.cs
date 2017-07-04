@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GymBoken.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace GymBoken.Controllers
 {
@@ -21,6 +22,7 @@ namespace GymBoken.Controllers
         }
 
         // GET: GymClasses/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,6 +37,7 @@ namespace GymBoken.Controllers
             return View(gymClass);
         }
 
+        [Authorize]
         // GET: GymClasses/Create
         public ActionResult Create()
         {
@@ -45,6 +48,7 @@ namespace GymBoken.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,StartTime,Duration,Description")] GymClass gymClass)
         {
@@ -58,6 +62,7 @@ namespace GymBoken.Controllers
             return View(gymClass);
         }
 
+        [Authorize]
         public ActionResult BookingToggle(int Id)
         {
             GymClass CurrentClass = db.GymClasses.Where(g => g.Id == Id).FirstOrDefault();
@@ -78,6 +83,7 @@ namespace GymBoken.Controllers
         }
 
         // GET: GymClasses/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -96,6 +102,7 @@ namespace GymBoken.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,StartTime,Duration,Description")] GymClass gymClass)
         {
@@ -108,7 +115,9 @@ namespace GymBoken.Controllers
             return View(gymClass);
         }
 
+
         // GET: GymClasses/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -124,6 +133,7 @@ namespace GymBoken.Controllers
         }
 
         // POST: GymClasses/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
