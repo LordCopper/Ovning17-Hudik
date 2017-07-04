@@ -37,7 +37,7 @@ namespace GymBoken.Controllers
         }
 
         // GET: GymClasses/Create
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -47,9 +47,9 @@ namespace GymBoken.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Description")] GymClass gymClass)
+        public ActionResult Create([Bind(Include = "Id,Name,Starttime,Duration,Description")] GymClass gymClass)
         {
             if (ModelState.IsValid)
             {
@@ -60,7 +60,7 @@ namespace GymBoken.Controllers
 
             return View(gymClass);
         }
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult BookingToggle(int id)
         {
             GymClass CurrentClass = db.GymClass.Where(m => m.Id == id).FirstOrDefault();
@@ -82,7 +82,7 @@ namespace GymBoken.Controllers
         }
 
         // GET: GymClasses/Edit/5
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -101,7 +101,7 @@ namespace GymBoken.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Description")] GymClass gymClass)
         {
@@ -115,7 +115,7 @@ namespace GymBoken.Controllers
         }
 
         // GET: GymClasses/Delete/5
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -131,8 +131,8 @@ namespace GymBoken.Controllers
         }
 
         // POST: GymClasses/Delete/5
-        [Authorize]
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

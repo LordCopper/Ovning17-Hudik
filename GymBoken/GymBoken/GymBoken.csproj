@@ -202,6 +202,10 @@
     <Compile Include="Migrations\201707040852147_Init2.Designer.cs">
       <DependentUpon>201707040852147_Init2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707041222149_Init1.cs" />
+    <Compile Include="Migrations\201707041222149_Init1.Designer.cs">
+      <DependentUpon>201707041222149_Init1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\GymClass.cs" />
@@ -264,11 +268,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\GymClasses\Create.cshtml" />
-    <Content Include="Views\GymClasses\Delete.cshtml" />
-    <Content Include="Views\GymClasses\Edit.cshtml" />
     <Content Include="Views\GymClasses\Details.cshtml" />
     <Content Include="Views\GymClasses\Index.cshtml" />
+    <Content Include="Views\GymClasses\Edit.cshtml" />
+    <Content Include="Views\GymClasses\Delete.cshtml" />
+    <Content Include="Views\GymClasses\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -294,6 +298,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707040852147_Init2.resx">
       <DependentUpon>201707040852147_Init2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707041222149_Init1.resx">
+      <DependentUpon>201707041222149_Init1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
