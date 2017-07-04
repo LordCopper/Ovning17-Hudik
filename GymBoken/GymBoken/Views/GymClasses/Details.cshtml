@@ -48,15 +48,18 @@
 		@foreach (var AttendingMember in Model.AttendingMembers)
 		{
 			<dd>
-				@Html.DisplayFor(model => model.AttendingMembers)
+				@AttendingMember.FullName
 			</dd>
 		}
 	</dl>
 </div>
-@if (User.IsInRole("Admin"))
-{
-	<p>
+
+
+	@if (User.IsInRole("Admin"))
+	{<p>
 		@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+	</p>}
+	<p>
 		@Html.ActionLink("Back to List", "Index")
 	</p>
-}
+
