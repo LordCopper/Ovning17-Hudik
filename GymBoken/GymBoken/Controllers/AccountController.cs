@@ -163,7 +163,7 @@ namespace GymBoken.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "GymGlasses");
+                    return RedirectToAction("Index", "GymClasses");
                 }
                 AddErrors(result);
             }
@@ -392,7 +392,7 @@ namespace GymBoken.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "GymGlasses");
+            return RedirectToAction("Index", "GymClasses");
         }
 
         //
@@ -449,7 +449,7 @@ namespace GymBoken.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "GymGlasses");
+            return RedirectToAction("Index", "GymClasses");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult
