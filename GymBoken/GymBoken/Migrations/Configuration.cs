@@ -83,6 +83,37 @@ namespace GymBoken.Migrations
             {
                 userManager.AddToRole(user.Id, "Member");
             }
+
+            context.SaveChanges();
+
+            GymClass[] gym = new GymClass[] {
+                new GymClass
+                {
+                Name = "Kicking",
+                Description ="spraka loss",
+                Duration = new TimeSpan(0,30,0),
+                StartTime = new DateTime(1999,02,06),
+                AttendingMembers = new List<ApplicationUser>()
+   
+
+                },
+
+                 new GymClass
+                {
+                Name = "Running",
+                Description =" Dom Tänker fånga dig",
+                Duration = new TimeSpan(0,30,0),
+                StartTime = new DateTime(2019,02,06),
+                AttendingMembers = new List<ApplicationUser>()
+            }
+
+            };
+            gym[0].AttendingMembers.Add(adminUser);
+            gym[1].AttendingMembers.Add(adminUser);
+            foreach (GymClass g in gym)
+                {
+                context.GymClass.Add(g);
+                }
         }
         
     }

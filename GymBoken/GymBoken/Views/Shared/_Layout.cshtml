@@ -19,16 +19,20 @@
                 </button>
                 @Html.ActionLink("GymBokning", "Index", "GymClasses", new { area = "" }, new { @class = "navbar-brand" })
             </div>
+            @if(User.Identity.IsAuthenticated)
+            {
             <div class="navbar-collapse collapse">
-                @*<ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("GymClasses", "Index", "GymClasses")</li>
-                    <li>@Html.ActionLink("About", "About", "GymClasses")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "GymClasses")</li>
-                </ul>*@
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("GymClasses", "CurrentBookings")li>
+                    <li>@Html.ActionLink("Min  Historik", "History", new { id = 2 })</li>
+                    @*<li>@Html.ActionLink("Contact", "Contact", "GymClasses")</li>*@
+                </ul>
+              }
+
                 @Html.Partial("_LoginPartial")
             </div>
-        </div>
-    </div>
+       
+   
     <div class="container body-content">
         @RenderBody()
         <hr />

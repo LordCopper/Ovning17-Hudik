@@ -54,7 +54,7 @@
     </dl>
 </div>
 <p>
-    @if (User.IsInRole("Admin"))
+    @if (User.IsInRole("Admin") && Model.StartTime >= DateTime.Now)
     {
 
 

@@ -16,9 +16,43 @@ namespace GymBoken.Controllers
 
         // GET: GymClasses
         public ActionResult Index()
+   
         {
+            List<GymClass> oldClasses = db.GymClass.Where(g => g.StartTime < DateTime.Now).ToList();
             return View(db.GymClass.ToList());
         }
+
+        public ActionResult History(int? id)
+        {
+            List<GymClass> oldClasses = db.GymClass.Where(g => g.StartTime < DateTime.Now).ToList();
+            if (id == null)
+            {
+
+                return View();
+            }
+            else if (User.Identity.IsAuthenticated)
+            {
+            ApplicationUser user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            return View(oldClasses.Where(g=>g.AttendingMembers.Contains(user)));
+            }
+            return RedirectToAction("Index");
+
+
+
+
+
+    }
+             [Authorize]
+        public ActionResult CurrentBookings()
+            {
+            ApplicationUser user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            List<GymClass> myClasses = db.GymClass.Where(g => g.StartTime < DateTime.Now && g.AttendingMembers.Contains(user)).ToList();
+            myClasses = myClasses.Where(g => g.AttendingMembers.Contains(user)).ToList();
+            return View(myClasses);
+            }
+
+
+
 
         // GET: GymClasses/Details/5
         [Authorize]
