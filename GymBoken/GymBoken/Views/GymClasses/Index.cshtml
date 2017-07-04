@@ -5,7 +5,7 @@
 }
 
 <h2>Index</h2>
-@if (User.Identity.IsAuthenticated)
+@if (User.IsInRole("Admin"))
 {
     <p>
         @Html.ActionLink("Create New", "Create")
@@ -29,32 +29,38 @@
         @*<th></th>*@
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Duration)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-
-        @if (User.Identity.IsAuthenticated)
-        {
+    @foreach (var item in Model)
+    {
+        <tr>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) <span> |</span>
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) <span> |</span>
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) <span> |</span>
-                @Html.ActionLink("Book", "BookingToggle", new { id = item.Id })
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
-        }
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
 
-    </tr>
-}
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })<span> |</span>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                }
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })<span> |</span>
+                    @Html.ActionLink("Book", "BookingToggle", new { id = item.Id })
+                </td>
+            }
+
+        </tr>
+    }
 
 </table>
