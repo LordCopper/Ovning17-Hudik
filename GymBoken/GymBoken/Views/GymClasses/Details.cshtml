@@ -42,6 +42,15 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.AttendingMembers)
+        </dt>
+        @foreach (var member in Model.AttendingMembers)
+        {
+            <dd>
+                @member.Email
+            </dd>
+        }
     </dl>
 </div>
 <p>
