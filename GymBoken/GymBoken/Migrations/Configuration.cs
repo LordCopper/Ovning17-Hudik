@@ -4,6 +4,7 @@ namespace GymBoken.Migrations
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -75,6 +76,31 @@ namespace GymBoken.Migrations
             foreach (ApplicationUser user in userManager.Users.ToList().Where(u => (u.Email != "admin@admin.ad" || u.Email != "admin@gymbokning.se")))
             {
                 userManager.AddToRole(user.Id, "Member");
+            }
+
+            GymClass[] gym = new GymClass[] {
+                    new GymClass
+                {
+                    Name = "Kicking",
+                    Description = "Sparka loss",
+                    Duration = new TimeSpan(0, 30, 0),
+                    StartTime = new DateTime(1999, 02, 06),
+                    AttendingMembers = new List<ApplicationUser>()
+                },
+                    new GymClass
+                {
+                    Name = "Running",
+                    Description = "Spring som fan",
+                    Duration = new TimeSpan(0, 30, 0),
+                    StartTime = new DateTime(2999, 02, 06),
+                    AttendingMembers = new List<ApplicationUser>()
+                }
+            };
+            gym[0].AttendingMembers.Add(adminUser);
+            gym[2].AttendingMembers.Add(adminUser);
+            foreach (GymClass g in gym)
+            {
+                context.GymClasses.Add(g);
             }
         }
     }

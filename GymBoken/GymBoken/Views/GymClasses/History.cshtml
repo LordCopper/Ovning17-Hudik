@@ -1,21 +1,10 @@
 ﻿@model IEnumerable<GymBoken.Models.GymClass>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Historia";
 }
 
-<h2>Index</h2>
-
-@if (User.IsInRole("Admin"))
-{
-    <p>
-        @Html.ActionLink("Skapa nytt pass", "Create")
-    </p>
-}
-
-<p>
-    @Html.ActionLink("Visa tidigare pass", "History")
-</p>
+<h2>History</h2>
 
 <table class="table">
     <tr>
@@ -52,21 +41,7 @@
             @if (User.Identity.IsAuthenticated)
             {
                 <td>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        @Html.ActionLink("Ändra pass", "Edit", new { id = item.Id }) <span>|</span>
-                        @Html.ActionLink("Ställ in pass", "Delete", new { id = item.Id })<span>|</span>
-                    }
-                    @Html.ActionLink("Detaljer", "Details", new { id = item.Id }) <span>|</span>
-
-                    @if (item.AttendingMembers.FirstOrDefault(g => g.Email == User.Identity.Name) != null)
-                    {
-                        @Html.ActionLink("Avboka", "BookingToggle", new { id = item.Id })
-                    }
-                    else
-                    {
-                        @Html.ActionLink("Boka", "BookingToggle", new { id = item.Id })
-                    }
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 </td>
             }
         </tr>

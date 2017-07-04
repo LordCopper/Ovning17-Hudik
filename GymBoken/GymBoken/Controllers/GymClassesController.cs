@@ -14,13 +14,37 @@ namespace GymBoken.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: GymClasses
+        // GET: GymClasses-------------------------------------------
         public ActionResult Index()
         {
             return View(db.GymClasses.ToList());
         }
 
-        // GET: GymClasses/Details/5
+        //HISTORY--------------------------------------
+        public ActionResult History(int? id = null)
+        {
+            List<GymClass> oldClasses = db.GymClasses.Where(g => g.StartTime < DateTime.Now).ToList();
+            if (id == null)
+            {
+                return View(oldClasses);
+            }
+            else if(User.Identity.IsAuthenticated)
+            {
+                ApplicationUser user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+                return View(oldClasses.Where(g => g.AttendingMembers.Contains(user)).ToList());
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult CurrentBookings()
+        {
+            ApplicationUser user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            List<GymClass> myClasses = db.GymClasses.Where(g => g.StartTime => DateTime.Now && g.AttendingMembers.Contains(user)).ToList();
+            return View();
+        }
+
+
+        // GET: GymClasses/Details/5---------------------------------------
         [Authorize]
         public ActionResult Details(int? id)
         {
@@ -36,14 +60,15 @@ namespace GymBoken.Controllers
             return View(gymClass);
         }
 
-        // GET: GymClasses/Create
+
+        // GET: GymClasses/Create------------------------------
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: GymClasses/Create
+        // POST: GymClasses/Create------------------------------
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -61,6 +86,7 @@ namespace GymBoken.Controllers
             return View(gymClass);
         }
 
+        //BOOKINGTOGGLE-------------------------------------------
         [Authorize]
         public ActionResult BookingToggle(int id)
         {
@@ -81,7 +107,8 @@ namespace GymBoken.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: GymClasses/Edit/5
+
+        // GET: GymClasses/Edit/5----------------------------------------
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
@@ -97,7 +124,8 @@ namespace GymBoken.Controllers
             return View(gymClass);
         }
 
-        // POST: GymClasses/Edit/5
+
+        // POST: GymClasses/Edit/5--------------------------------------------
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -114,7 +142,8 @@ namespace GymBoken.Controllers
             return View(gymClass);
         }
 
-        // GET: GymClasses/Delete/5
+
+        // GET: GymClasses/Delete/5--------------------------------------
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
@@ -130,7 +159,8 @@ namespace GymBoken.Controllers
             return View(gymClass);
         }
 
-        // POST: GymClasses/Delete/5
+
+        // POST: GymClasses/Delete/5------------------------------------
         [HttpPost, ActionName("Delete")]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
@@ -142,6 +172,7 @@ namespace GymBoken.Controllers
             return RedirectToAction("Index");
         }
 
+        //DISPOSE---------------------------------------------------------------
         protected override void Dispose(bool disposing)
         {
             if (disposing)
