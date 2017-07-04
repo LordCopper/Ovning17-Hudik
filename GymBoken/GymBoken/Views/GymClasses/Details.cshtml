@@ -55,7 +55,7 @@
 </div>
 
 
-	@if (User.IsInRole("Admin"))
+	@if (User.IsInRole("Admin") && Model.StartTime >= DateTime.Now;)
 	{<p>
 		@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
 	</p>}

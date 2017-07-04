@@ -11,6 +11,9 @@
 		@Html.ActionLink("Create New", "Create")
 	</p>
 }
+<p>
+	@Html.ActionLink("Outdated classes", "History")
+</p>
 <table class="table">
 	<tr>
 		<th>
@@ -46,13 +49,19 @@
 			@if (User.Identity.IsAuthenticated)
 			{
 				<td>
-
-					@Html.ActionLink("Book/Unbook", "BookingToggle", new { id = item.Id }) <span>|</span>
-					@Html.ActionLink("Details", "Details", new { id = item.Id })
+					@if (item.AttendingMembers.FirstOrDefault(g => g.Email == User.Identity.Name) != null)
+					{
+						@Html.ActionLink("Unbook", "BookingToggle", new { id = item.Id }) <span>|</span>
+					}
+					else
+					{
+						@Html.ActionLink("Book", "BookingToggle", new { id = item.Id }) <span>|</span>
+					}
+					@Html.ActionLink("Class details", "Details", new { id = item.Id })
 					@if (User.IsInRole("Admin"))
 					{
-						<span>|</span>@Html.ActionLink("Edit", "Edit", new { id = item.Id })
-						<span>|</span>@Html.ActionLink("Delete", "Delete", new { id = item.Id })
+						<span>|</span>@Html.ActionLink("Edit class", "Edit", new { id = item.Id })
+						<span>|</span>@Html.ActionLink("Cancel class", "Delete", new { id = item.Id })
 					}
 
 				</td>

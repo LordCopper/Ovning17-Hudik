@@ -7,6 +7,7 @@ namespace GymBoken.Migrations
 	using System.Data.Entity;
 	using System.Data.Entity.Migrations;
 	using System.Linq;
+	using System.Collections.Generic;
 
 	internal sealed class Configuration : DbMigrationsConfiguration<GymBoken.Models.ApplicationDbContext>
 	{
@@ -47,13 +48,13 @@ namespace GymBoken.Migrations
 			}
 			UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(context);
 			UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(userStore);
-			string[] emails = new[] { "ai@gym.se","admin@gymbokning.se", "admin@admin.ad", "editor@gym.se", "bob@gym.se" };
+			string[] emails = new[] { "ai@gym.se", "admin@gymbokning.se", "admin@admin.ad", "editor@gym.se", "bob@gym.se" };
 			string[] firstName = new[] { "Ai", "Abmin", "Editor", "Bob", "Admin" };
 			string[] lastName = new[] { "Mighty", "Abmin", "Wan", "Bobsson", "Gymbok" };
 			int i = 0;
 			foreach (string email in emails)
 			{
-				if(!context.Users.Any(u=>u.UserName == email))
+				if (!context.Users.Any(u => u.UserName == email))
 				{
 					ApplicationUser user = new ApplicationUser { UserName = email, Email = email, FirstName = firstName[i], LastName = lastName[i], TimeOfRegistration = DateTime.Now };
 					var result = userManager.Create(user, "foobar");
@@ -63,8 +64,8 @@ namespace GymBoken.Migrations
 						throw new Exception(string.Join("\n", result.Errors));
 					}
 				}
-			i++;
-		
+				i++;
+
 			}
 			ApplicationUser adminUser = userManager.FindByName("admin@admin.ad");
 			userManager.AddToRole(adminUser.Id, "Admin");
@@ -76,7 +77,32 @@ namespace GymBoken.Migrations
 			{
 				userManager.AddToRole(user.Id, "Member");
 			}
-			
+			context.SaveChanges();
+			GymClass[] gym = new GymClass[] {
+			new GymClass
+			{
+				Name = "Kicking",
+				Description = "Kick n stoff",
+				Duration = new TimeSpan(0, 30, 0),
+				StartTime = new DateTime(1999, 02, 02),
+				AttendingMembers = new List<ApplicationUser>()
+			},
+			new GymClass
+			{
+				Name = "Running",
+				Description = "Running around at the speed of sound",
+				Duration = new TimeSpan(0, 30, 0),
+				StartTime = new DateTime(20, 02, 04)
+			}
+			};
+			gym[0].AttendingMembers.Add(adminUser);
+			gym[0].AttendingMembers.Add(adminUser);
+			foreach(GymClass g in gym)
+			{
+				context.GymClasses.Add(g);
+			}
+
 		}
 	}
 }
+
